@@ -1,16 +1,16 @@
+import { useSelector } from 'react-redux';
 import ProductItem from './ProductItem';
 import classes from './Products.module.css';
 
 const Products = (props) => {
+  const prodItemsObj = useSelector(prod => prod.cartItems.prodItemsObj);
+
   return (
     <section className={classes.products}>
       <h2>Buy your favorite products</h2>
       <ul>
-        <ProductItem
-          title='Test'
-          price={6}
-          description='This is a first product - amazing!'
-        />
+        {prodItemsObj.length >= 1 && prodItemsObj.map((prod, i) => ( <ProductItem key={i} info={prod} id={i} /> ))}
+        {prodItemsObj.length < 1 && <p className={classes.empty}>No products available!</p>}
       </ul>
     </section>
   );
