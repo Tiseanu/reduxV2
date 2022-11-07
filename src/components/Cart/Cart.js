@@ -5,6 +5,8 @@ import CartItem from './CartItem';
 
 const Cart = (props) => {
   const cartItemsObj = useSelector(state => state.cartItems.cartItemsObj);
+  const cartTotal = useSelector(state => state.cartItems.total);
+
   return (
     <Card className={classes.cart}>
       <h2>Your Shopping Cart</h2>
@@ -15,6 +17,7 @@ const Cart = (props) => {
         {cartItemsObj.length < 1 && 
           <p>No Item in your cart</p>
         }
+        <p>Total: {cartTotal}</p>
       </ul>
     </Card>
   );
