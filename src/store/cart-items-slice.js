@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export const itemCurrecy = "$";
+
 const cartItemsObj = [
-    {id: 1,  title: 'Product 1', description: 'This is description for Product 1', price: '6', basePrice: '6', currency: '$', qty: 1},
+    {id: 1,  title: 'Product 1', description: 'This is description for Product 1', price: '6', basePrice: '6', qty: 1},
 ];
 const prodItemsObj = [
-    {id: 1,  title: 'Product 2', description: 'This is description for Product 2', price: '5', basePrice: '5', currency: '$', qty: 1}
+    {id: 1,  title: 'Product 2', description: 'This is description for Product 2', price: '5', basePrice: '5', qty: 1}
 ];
 
 const cartItemsReducer = createSlice({

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import Card from '../UI/Card';
 import classes from './Cart.module.css';
 import CartItem from './CartItem';
+import { itemCurrecy } from '../../store/cart-items-slice';
 
 const Cart = (props) => {
   const cartItemsObj = useSelector(state => state.cartItems.cartItemsObj);
@@ -17,7 +18,7 @@ const Cart = (props) => {
         {cartItemsObj.length < 1 && 
           <p>No Item in your cart</p>
         }
-        <p>Total: {cartTotal}</p>
+        <p>Total: {itemCurrecy}{cartTotal}</p>
       </ul>
     </Card>
   );

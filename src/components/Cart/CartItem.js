@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import classes from './CartItem.module.css';
 
-import { constCartItemsFcts } from '../../store/cart-items-slice'
+import { constCartItemsFcts, itemCurrecy } from '../../store/cart-items-slice'
 
 const CartItem = (props) => {
-  const { title, price, basePrice, currency, qty } = props.info;
+  const { title, price, basePrice, qty } = props.info;
   const dispatch = useDispatch();
 
   const plusQty = () => {
@@ -19,7 +19,7 @@ const CartItem = (props) => {
       <header>
         <h3>{title}</h3>
         <div className={classes.price}>
-          {currency}{price} <span className={classes.itemprice}>({currency}{basePrice}/item)</span>
+          {itemCurrecy}{price} <span className={classes.itemprice}>({itemCurrecy}{basePrice}/item)</span>
         </div>
       </header>
       <div className={classes.details}>
