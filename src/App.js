@@ -5,7 +5,7 @@ import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import Notification from './components/UI/Notification';
-import { sendData } from './store/cart-items-slice';
+import { sendData, getData } from './store/action-creator';
 
 // this will not change and is not reinitialized if the component rerenders
 // will be initialize on the first load
@@ -17,13 +17,6 @@ function App() {
   const myCart = useSelector(state => state.cartItems);
   const myNotification = useSelector(state => state.toggleCart.notification);
 
-  // useEffect(() => {
-  //   fetch('https://products-345ff-default-rtdb.firebaseio.com/cart.json', {
-  //     method: 'PUT',
-  //     body: JSON.stringify(myCart.cartItemsObj)
-  //   });
-  // }, [myCart]);
-
   useEffect(() => {
     if (isInitialCart) {
       isInitialCart = false;
@@ -33,42 +26,11 @@ function App() {
     dispatch(sendData('https://products-345ff-default-rtdb.firebaseio.com/prods.json', myCart.prodItemsObj));
   }, [myCart, dispatch]);
 
-  // useEffect(() => {
-  //   const sendCartData = async () => { // this runs only if some of the dependencies changes
-  //     dispatch(constShowCartFcts.showNotification({ status: 'pending', title: 'Loading...', message: 'Updating cart data' }));
-  //     const response = await fetch('https://products-345ff-default-rtdb.firebaseio.com/cart.json', {
-  //       method: 'PUT',
-  //       body: JSON.stringify(myCart.cartItemsObj)
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Could not update the cart DB');
-  //     }
-  //     dispatch(constShowCartFcts.showNotification({ status: 'success', title: 'Success!', message: 'Success updating cart data' }));
-  //   };
+  useEffect(() => {
+    dispatch(getData('https://products-345ff-default-rtdb.firebaseio.com/cart.json', 'cart'));
+    dispatch(getData('https://products-345ff-default-rtdb.firebaseio.com/prods.json', 'prods'));
+  }, [dispatch]);
 
-  //   const sendProdData = async () => {
-  //     dispatch(constShowCartFcts.showNotification({ status: 'pending', title: 'Loading...', message: 'Updating prods data' }));
-  //     const response = await fetch('https://products-345ff-default-rtdb.firebaseio.com/prods.json', {
-  //       method: 'PUT',
-  //       body: JSON.stringify(myCart.prodItemsObj)
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Could not update the prods DB');
-  //     }
-  //     dispatch(constShowCartFcts.showNotification({ status: 'success', title: 'Success!', message: 'Success updating prods data' }));
-  //   };
-
-  //   if (isInitialCart) {
-  //     isInitialCart = false;
-  //     return;
-  //   }
-  //   sendCartData().catch(err => {// this  will run only for the first time
-  //     dispatch(constShowCartFcts.showNotification({ status: 'error', title: 'Error', message: err.message }));
-  //   });
-  //   sendProdData().catch(err => {// this  will run only for the first time
-  //     dispatch(constShowCartFcts.showNotification({ status: 'error', title: 'Error', message: err.message }));
-  //   });
-  // }, [myCart, dispatch]);
 
   return (
     <Fragment>
