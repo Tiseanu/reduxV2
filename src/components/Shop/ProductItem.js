@@ -3,10 +3,10 @@ import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
 import { constCartItemsFcts, itemCurrecy } from '../../store/cart-items-slice';
 
-
 const ProductItem = (props) => {
   const { title, description, basePrice } = props.info;
   const dispatch = useDispatch();
+  
   const addProd2Cart = () => {
     dispatch(constCartItemsFcts.addItem2cart(props.id));
   };
