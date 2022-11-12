@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { constShowCartFcts } from './toggle-cart-slice';
 
 export const itemCurrecy = "$";
 
@@ -44,6 +45,31 @@ const cartItemsReducer = createSlice({
         },
     }
 });
+
+
+export const sendData = (link, item) => { // returns an async function
+    return async (dispatch) => {
+        dispatch(constShowCartFcts.showNotification({ status: 'pending', title: 'Loading...', message: 'Updating data' }));
+
+        const sendRequest = async () => {
+            const response = await fetch(link, {
+                method: 'PUT',
+                body: JSON.stringify(item)
+            });
+            if (!response.ok) {
+                throw new Error('Could not update the DB');
+            }
+        };
+
+        try {
+            await sendRequest();
+            dispatch(constShowCartFcts.showNotification({ status: 'success', title: 'Success!', message: 'Success updating data' }));
+        } catch (err) {
+            dispatch(constShowCartFcts.showNotification({ status: 'error', title: 'Error', message: err.message }));
+        }
+    };
+};
+
 
 export default cartItemsReducer.reducer;
 export const constCartItemsFcts = cartItemsReducer.actions;
